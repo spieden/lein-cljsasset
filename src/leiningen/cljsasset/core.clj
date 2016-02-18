@@ -26,7 +26,9 @@
 (defn conj-assets [acc asset]
   (-> acc
       (update-in [:js] into (:js asset))
-      (update-in [:css] into (:css asset))))
+      (update-in [:css] into (:css asset))
+      (update-in [:images] merge (:images asset))))
 
 (defn get-assets [deps]
-  (reduce conj-assets {:js [] :css []} (map (comp :cljsasset get-project) deps)))
+  (reduce conj-assets {:js [] :css [] :images {}} (map (comp :cljsasset get-project) deps)))
+
